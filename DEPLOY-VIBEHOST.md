@@ -53,4 +53,8 @@ Source GitHub chứa schema và migration. Dữ liệu PostgreSQL Docker trên m
 
 Mở trang chủ và đăng ký/đăng nhập. Tạo mục tiêu, check-in, xem hồ sơ, rồi redeploy để kiểm tra tài khoản và lịch sử vẫn được giữ. Xem log nếu migration không kết nối được database hoặc hostname/port của PostgreSQL chưa đúng.
 
+Nếu đăng ký báo lỗi chung, xem **log server/runtime của website** ngay sau lần gửi form. Dòng `[register] Account creation failed` ghi loại lỗi, mã Prisma và việc `DATABASE_URL` có được cấu hình hay chưa; không ghi email, mật khẩu hay URL kết nối. Lỗi `401` tại `/api/auth/callback/credentials` trong trình duyệt là lỗi đăng nhập, không phải log nguyên nhân đăng ký.
+
+Trong terminal của môi trường website, chạy `npm run db:check` để kiểm tra kết nối và trạng thái migration. Nếu báo còn migration chưa áp dụng, chạy `npx prisma migrate deploy` rồi kiểm tra lại. Nếu không kết nối được, đối chiếu hostname/port, thông tin xác thực và yêu cầu TLS với thông tin PostgreSQL do hosting cấp. Chạy các lệnh này trong môi trường production để dùng đúng `DATABASE_URL` của website.
+
 Hướng dẫn về tạo website, kết nối GitHub và PostgreSQL: [Trung tâm hỗ trợ Mắt Bão](https://wiki.matbao.net/huong-dan-su-dung-trien-khai-website-nhanh-de-dang-nen-tang-deploy-website-tu-dong-tren-nen-tang-tinhgon/).

@@ -10,6 +10,7 @@
     "build": "prisma generate && next build",
     "start": "prisma migrate deploy && next start --hostname 0.0.0.0",
     "db:push": "prisma db push",
+    "db:check": "prisma migrate status",
     "db:up": "node scripts/setup.cjs && docker compose up -d --wait",
     "db:stop": "docker compose stop",
     "db:import-sqlite": "node --env-file=.env scripts/import-sqlite.cjs",

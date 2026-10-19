@@ -48,6 +48,16 @@ export async function register(
       error.code === "P2002"
     )
       return { error: "Email này đã có tài khoản. Bạn có thể đăng nhập." };
+    console.error("[register] Account creation failed", {
+      type: error instanceof Error ? error.name : "UnknownError",
+      code:
+        error instanceof Prisma.PrismaClientKnownRequestError
+          ? error.code
+          : error instanceof Prisma.PrismaClientInitializationError
+            ? error.errorCode ?? "UNKNOWN"
+            : "UNKNOWN",
+      databaseUrlConfigured: Boolean(process.env.DATABASE_URL),
+    });
     return { error: "Chưa thể tạo tài khoản. Vui lòng thử lại." };
   }
   return { success: true };
