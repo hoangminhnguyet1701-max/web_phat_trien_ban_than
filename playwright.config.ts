@@ -1,4 +1,6 @@
 import { defineConfig } from "@playwright/test";
+import { testDatabaseUrl } from "./scripts/test-database.cjs";
+const databaseUrl = testDatabaseUrl();
 export default defineConfig({
   timeout: 90000,
   expect: { timeout: 15000 },
@@ -16,7 +18,7 @@ export default defineConfig({
     reuseExistingServer: false,
     timeout: 60000,
     env: {
-      DATABASE_URL: "file:./e2e.db",
+      DATABASE_URL: databaseUrl,
       NEXTAUTH_URL: "http://localhost:3100",
       NEXTAUTH_SECRET: "test-only-secret-for-isolated-database-123456789",
     },

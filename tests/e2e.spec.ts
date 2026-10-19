@@ -2,7 +2,8 @@ import { test, expect } from "@playwright/test";
 import { PrismaClient } from "@prisma/client";
 import { hashPassword } from "../src/lib/password";
 import { createHash } from "node:crypto";
-const db = new PrismaClient({ datasources: { db: { url: "file:./e2e.db" } } });
+import { testDatabaseUrl } from "../scripts/test-database.cjs";
+const db = new PrismaClient({ datasources: { db: { url: testDatabaseUrl() } } });
 test("real account, goal, adaptive check-in, ownership, summary and mobile", async ({
   page,
   browser,
