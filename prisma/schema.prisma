@@ -1,0 +1,69 @@
+generator client {
+  provider = "prisma-client-js"
+}
+datasource db {
+  provider = "sqlite"
+  url = env("DATABASE_URL")
+}
+model User {
+  id String @id @default(cuid())
+  name String
+  email String @unique
+  passwordHash String
+  createdAt DateTime @default(now())
+  goals Goal[]
+  challenges Challenge[]
+}
+model Goal {
+  id String @id @default(cuid())
+  userId String
+  user User @relation(fields: [userId], references: [id])
+  title String
+  category String
+  reason String?
+  startLevel String
+  duration Int
+  createdAt DateTime @default(now())
+  challenge Challenge?
+}
+model Challenge {
+  id String @id @default(cuid())
+  userId String
+  user User @relation(fields: [userId], references: [id])
+  goalId String @unique
+  goal Goal @relation(fields: [goalId], references: [id])
+  startDate DateTime
+  endDate DateTime
+  status String @default("active")
+  currentStreak Int @default(0)
+  longestStreak Int @default(0)
+  tasks DailyTask[]
+  createdAt DateTime @default(now())
+}
+model DailyTask {
+  id String @id @default(cuid())
+  challengeId String
+  challenge Challenge @relation(fields: [challengeId], references: [id])
+  dayNumber Int
+  title String
+  difficulty String
+  status String @default("pending")
+  checkIn CheckIn?
+  @@unique([challengeId, dayNumber])
+}
+model CheckIn {
+  id String @id @default(cuid())
+  taskId String @unique
+  task DailyTask @relation(fields: [taskId], references: [id])
+  completed Boolean
+  feeling String
+  note String?
+  createdAt DateTime @default(now())
+}
+
+model LoginAttempt {
+  key String @id
+  count Int @default(1)
+  resetAt DateTime
+  @@index([resetAt])
+}

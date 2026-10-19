@@ -1,0 +1,35 @@
+{
+  "name": "moi-ngay-mot-chut",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --hostname 127.0.0.1",
+    "build": "prisma generate && next build",
+    "start": "next start --hostname 127.0.0.1",
+    "db:push": "prisma db push",
+    "test": "tsx --test tests/*.test.ts",
+    "test:e2e": "node scripts/test-e2e.cjs",
+    "setup": "node scripts/setup.cjs && prisma migrate deploy"
+  },
+  "dependencies": {
+    "next": "^15.5.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "@prisma/client": "^6.19.0",
+    "next-auth": "^4.24.11",
+    "lucide-react": "^0.468.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.0",
+    "@types/node": "^24.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "prisma": "^6.19.0",
+    "tsx": "^4.20.0",
+    "@playwright/test": "^1.56.0"
+  },
+  "overrides": {
+    "postcss": "^8.5.23",
+    "deepmerge-ts": "^8.0.0"
+  }
+}
